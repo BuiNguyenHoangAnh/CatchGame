@@ -1,0 +1,10 @@
+E:\MyDocument\University\GiaoTrinh\HK6\Lap trinh truc quan - 4.3.1\Thuc hanh\CatchGame\CatchGame\bin\Debug\CatchGame.exe.config
+E:\MyDocument\University\GiaoTrinh\HK6\Lap trinh truc quan - 4.3.1\Thuc hanh\CatchGame\CatchGame\bin\Debug\CatchGame.exe
+E:\MyDocument\University\GiaoTrinh\HK6\Lap trinh truc quan - 4.3.1\Thuc hanh\CatchGame\CatchGame\bin\Debug\CatchGame.pdb
+E:\MyDocument\University\GiaoTrinh\HK6\Lap trinh truc quan - 4.3.1\Thuc hanh\CatchGame\CatchGame\obj\Debug\CatchGame.csprojResolveAssemblyReference.cache
+E:\MyDocument\University\GiaoTrinh\HK6\Lap trinh truc quan - 4.3.1\Thuc hanh\CatchGame\CatchGame\obj\Debug\CatchGame.Form1.resources
+E:\MyDocument\University\GiaoTrinh\HK6\Lap trinh truc quan - 4.3.1\Thuc hanh\CatchGame\CatchGame\obj\Debug\CatchGame.Properties.Resources.resources
+E:\MyDocument\University\GiaoTrinh\HK6\Lap trinh truc quan - 4.3.1\Thuc hanh\CatchGame\CatchGame\obj\Debug\CatchGame.csproj.GenerateResource.Cache
+E:\MyDocument\University\GiaoTrinh\HK6\Lap trinh truc quan - 4.3.1\Thuc hanh\CatchGame\CatchGame\obj\Debug\CatchGame.csproj.CoreCompileInputs.cache
+E:\MyDocument\University\GiaoTrinh\HK6\Lap trinh truc quan - 4.3.1\Thuc hanh\CatchGame\CatchGame\obj\Debug\CatchGame.exe
+E:\MyDocument\University\GiaoTrinh\HK6\Lap trinh truc quan - 4.3.1\Thuc hanh\CatchGame\CatchGame\obj\Debug\CatchGame.pdb
