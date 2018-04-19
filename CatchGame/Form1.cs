@@ -26,13 +26,13 @@ namespace CatchGame
 
         private Panel panel = new Panel();
 
-        Bitmap backBuffer;
-
+        Bitmap backBufferBasket;
         Bitmap spriteBasket;
         Graphics graphicsBasket;
         Graphics gBasket;
         int locationBasket;
 
+        Bitmap backBufferEggs;
         Bitmap spriteEggs;
         Graphics graphicsEggs;
         Graphics gEggs;
@@ -98,8 +98,11 @@ namespace CatchGame
             timer.Enabled = true;
             timer.Interval = 1000;
 
-            backBuffer = new Bitmap(panel.Width, panel.Height);
+            backBufferBasket = new Bitmap(panel.Width, panel.Height);
 
+            backBufferEggs = new Bitmap(panel.Width, panel.Height);
+
+            loadBackground();
             loadBasketImage();
             loadEggsImage();
             
@@ -129,16 +132,6 @@ namespace CatchGame
         {
             this.lbCountTime.Text = i.ToString();
 
-            spriteEggs = new Bitmap(Properties.Resources.egg);
-            graphicsEggs = panel.CreateGraphics();
-            gEggs = Graphics.FromImage(backBuffer);
-
-            gEggs.Clear(Color.White);
-            gEggs.DrawImage(spriteEggs, 20, 20, new Rectangle(0, 0, spriteEggs.Width, spriteEggs.Height), GraphicsUnit.Pixel);
-            gEggs.Dispose();
-
-            graphicsEggs.DrawImageUnscaled(backBuffer, 20, 20);
-
             i--;
             if (i < 0)
             {
@@ -148,18 +141,25 @@ namespace CatchGame
         #endregion
 
         #region load hinh anh
+        //set the background of the game
+        private void loadBackground()
+        {
+            panel.BackgroundImage = Properties.Resources.bg;
+            panel.BackgroundImageLayout = ImageLayout.Stretch;
+        }
+
         //load hinh cai gio
         private void loadBasketImage()
         {
             spriteBasket =new Bitmap(Properties.Resources.basket);
             graphicsBasket = panel.CreateGraphics();
-            gBasket = Graphics.FromImage(backBuffer);
+            gBasket = Graphics.FromImage(backBufferBasket);
 
             //gBasket.Clear(Color.White);
             gBasket.DrawImage(spriteBasket, panel.Width / 2 - spriteBasket.Width, panel.Height - spriteBasket.Height - 60, new Rectangle(0, 0, spriteBasket.Width, spriteBasket.Height), GraphicsUnit.Pixel);
             gBasket.Dispose();
 
-            graphicsBasket.DrawImageUnscaled(backBuffer, 20, 20);
+            graphicsBasket.DrawImageUnscaled(backBufferBasket, 20, 20);
         }
 
         //load hinh con ga
@@ -173,18 +173,18 @@ namespace CatchGame
         {
             spriteEggs = new Bitmap(Properties.Resources.egg);
             graphicsEggs = panel.CreateGraphics();
-            gEggs = Graphics.FromImage(backBuffer);
+            gEggs = Graphics.FromImage(backBufferEggs);
 
             //gEggs.Clear(Color.White);
             gEggs.DrawImage(spriteEggs, 20, 20, new Rectangle(0, 0, spriteEggs.Width, spriteEggs.Height), GraphicsUnit.Pixel);
             gEggs.Dispose();
 
-            graphicsEggs.DrawImageUnscaled(backBuffer, 20, 20);
+            graphicsEggs.DrawImageUnscaled(backBufferEggs, 20, 20);
         }
         #endregion
 
         #region dieu khien gio
-        //phim qua trai
+        //dieu khien ban phim
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == Keys.Left)
@@ -192,13 +192,13 @@ namespace CatchGame
                 locationBasket -= 1;
                 spriteBasket = new Bitmap(Properties.Resources.basket);
                 graphicsBasket = panel.CreateGraphics();
-                gBasket = Graphics.FromImage(backBuffer);
+                gBasket = Graphics.FromImage(backBufferBasket);
 
                 gBasket.Clear(Color.White);
                 gBasket.DrawImage(spriteBasket, panel.Width / 2 - spriteBasket.Width + 2 * locationBasket, panel.Height - spriteBasket.Height - 60, new Rectangle(0, 0, spriteBasket.Width, spriteBasket.Height), GraphicsUnit.Pixel);
                 gBasket.Dispose();
 
-                graphicsBasket.DrawImageUnscaled(backBuffer, 20, 20);
+                graphicsBasket.DrawImageUnscaled(backBufferBasket, 20, 20);
                 return true;
             }
             if (keyData == Keys.Right)
@@ -206,20 +206,17 @@ namespace CatchGame
                 locationBasket += 1;
                 spriteBasket = new Bitmap(Properties.Resources.basket);
                 graphicsBasket = panel.CreateGraphics();
-                gBasket = Graphics.FromImage(backBuffer);
+                gBasket = Graphics.FromImage(backBufferBasket);
 
                 gBasket.Clear(Color.White);
                 gBasket.DrawImage(spriteBasket, panel.Width / 2 - spriteBasket.Width + 2 * locationBasket, panel.Height - spriteBasket.Height - 60, new Rectangle(0, 0, spriteBasket.Width, spriteBasket.Height), GraphicsUnit.Pixel);
                 gBasket.Dispose();
 
-                graphicsBasket.DrawImageUnscaled(backBuffer, 20, 20);
+                graphicsBasket.DrawImageUnscaled(backBufferBasket, 20, 20);
                 return true;
             }
             return false;
         }
-
-        //phim qua phai
-
         #endregion
     }
 }
