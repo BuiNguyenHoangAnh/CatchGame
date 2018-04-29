@@ -8,3 +8,7 @@ E:\MyDocument\University\GiaoTrinh\HK6\Lap trinh truc quan - 4.3.1\Thuc hanh\Cat
 E:\MyDocument\University\GiaoTrinh\HK6\Lap trinh truc quan - 4.3.1\Thuc hanh\CatchGame\CatchGame\obj\Debug\CatchGame.csproj.CoreCompileInputs.cache
 E:\MyDocument\University\GiaoTrinh\HK6\Lap trinh truc quan - 4.3.1\Thuc hanh\CatchGame\CatchGame\obj\Debug\CatchGame.exe
 E:\MyDocument\University\GiaoTrinh\HK6\Lap trinh truc quan - 4.3.1\Thuc hanh\CatchGame\CatchGame\obj\Debug\CatchGame.pdb
+E:\MyDocument\University\GiaoTrinh\HK6\Lap trinh truc quan - 4.3.1\Thuc hanh\CatchGame\CatchGame\bin\Debug\SpriteLibrary.dll
+E:\MyDocument\University\GiaoTrinh\HK6\Lap trinh truc quan - 4.3.1\Thuc hanh\CatchGame\CatchGame\bin\Debug\SpriteLibrary.pdb
+E:\MyDocument\University\GiaoTrinh\HK6\Lap trinh truc quan - 4.3.1\Thuc hanh\CatchGame\CatchGame\bin\Debug\SpriteLibrary.xml
+E:\MyDocument\University\GiaoTrinh\HK6\Lap trinh truc quan - 4.3.1\Thuc hanh\CatchGame\CatchGame\obj\Debug\CatchGame.csproj.CopyComplete
