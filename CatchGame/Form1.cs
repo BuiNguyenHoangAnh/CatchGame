@@ -11,7 +11,8 @@ using SpriteLibrary;
 
 namespace CatchGame
 {
-    public enum MyDir { left, right, stopped }
+    public enum MyDir { left, right, stopped } //modes of the basket
+    public enum SpriteNames { basket, egg, splash }
 
     public partial class Form1 : Form
     {
@@ -33,20 +34,25 @@ namespace CatchGame
 
         MyDir lastDirection = MyDir.stopped;
 
+        DateTime lastMovement = DateTime.Now; //Used to give a slight delay in checking for keypress.
+
         SpriteController spriteController;
         bool left;  //basket is moved to left
         bool right;   //basket is moved to right
-        bool move;
-        int basketSpeed = 20;
+        bool move; //whether basket is moved
+        int basketSpeed; //speed of the basket
+        int eggsSpeed = 10; // speed of the eggs
+
+        int score; //score of the gamer
 
         Bitmap backBufferBasket;
-        Sprite spriteBasket;
+        Sprite spriteBasket; //spite of the basket
         Graphics graphicsBasket;
         Graphics gBasket;
         int locationBasket;
 
         Bitmap backBufferEggs;
-        Bitmap spriteEggs;
+        Sprite spriteEggs;
         Graphics graphicsEggs;
         Graphics gEggs;
 
@@ -57,7 +63,7 @@ namespace CatchGame
             myInIt();
         }
 
-        #region thiet ke form
+        #region design the form
         //thiet ke form
         private void myInIt()
         {
@@ -157,6 +163,10 @@ namespace CatchGame
             this.lbCountTime.Text = i.ToString();
 
             i--;
+            if (i % 5 == 0 || i % 9 == 0)
+            {
+                loadEggsImage();
+            }
             if (i < 0)
             {
                 this.timer.Enabled = false;
@@ -190,24 +200,33 @@ namespace CatchGame
             spriteBasket.CannotMoveOutsideBox = true;
         }
 
-        //load hinh con ga
-        private void loadChickenImage()
-        {
-
-        }
-
         //load hinh qua trung
         private void loadEggsImage()
         {
-            //spriteEggs = new Bitmap(Properties.Resources.egg);
-            //graphicsEggs = panel.CreateGraphics();
-            //gEggs = Graphics.FromImage(backBufferEggs);
+            int startX = 0;
+            int startY = 0;
+            Random rand = new Random();
 
-            ////gEggs.Clear(Color.White);
-            //gEggs.DrawImage(spriteEggs, 20, 20, new Rectangle(0, 0, spriteEggs.Width, spriteEggs.Height), GraphicsUnit.Pixel);
-            //gEggs.Dispose();
+            startX = rand.Next(5, 320);
+            startY = 5;
 
-            //graphicsEggs.DrawImageUnscaled(backBufferEggs, 20, 20);
+            spriteEggs = new Sprite(new Point(0, 0), spriteController, Properties.Resources.egg, 43, 50, 1000, 1);
+            spriteEggs.SetSize(new Size(70, 120));
+
+            spriteEggs.AddAnimation(new Point(0, 200), Properties.Resources.basket, 41, 52, 150, 1);
+            spriteEggs.PutPictureBoxLocation(new Point(startX, startY));
+
+            spriteEggs.CannotMoveOutsideBox = true;
+
+            spriteEggs.SetSpriteDirectionDegrees(270);
+            spriteEggs.AutomaticallyMoves = true;
+            spriteEggs.MovementSpeed = eggsSpeed;
+        }
+
+        //load hinh con ga
+        private void loadSplashEggImage()
+        {
+
         }
         #endregion
 
@@ -219,6 +238,14 @@ namespace CatchGame
             right = false;
             move = false;
 
+            basketSpeed = 10000;
+
+            TimeSpan duration = DateTime.Now - lastMovement;
+            if (duration.TotalMilliseconds < 100)
+                return;
+
+            lastMovement = DateTime.Now;
+
             if (spriteController.IsKeyPressed(Keys.Left))
             {
                 left = true;
@@ -228,6 +255,7 @@ namespace CatchGame
                 right = true;
             }
 
+            if (left && right) return;
             if (left)
             {
                 if (lastDirection != MyDir.left)
@@ -236,8 +264,8 @@ namespace CatchGame
                     lastDirection = MyDir.left;
                 }
                 move = true;
-                spriteBasket.MovementSpeed = basketSpeed;
                 spriteBasket.AutomaticallyMoves = true;
+                spriteBasket.MovementSpeed = basketSpeed;
             }
             if (right)
             {
@@ -250,11 +278,12 @@ namespace CatchGame
                 spriteBasket.AutomaticallyMoves = true;
                 spriteBasket.MovementSpeed = basketSpeed;
             }
-            //if (!move)
-            //{
-            //    lastDirection = MyDir.stopped;
-            //    spriteBasket.MovementSpeed = 0;
-            //}
+            if (!move)
+            {
+                lastDirection = MyDir.stopped;
+
+                spriteBasket.MovementSpeed = 0;
+            }
         }
         #endregion
     }
