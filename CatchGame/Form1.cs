@@ -12,7 +12,7 @@ using SpriteLibrary;
 namespace CatchGame
 {
     public enum MyDir { left, right, stopped } //modes of the basket
-    public enum SpriteNames { basket, egg, splash }
+    public enum SpriteNames { basket, egg, splash } //name of sprite
 
     public partial class Form1 : Form
     {
@@ -63,8 +63,7 @@ namespace CatchGame
             myInIt();
         }
 
-        #region design the form
-        //thiet ke form
+        //design the form
         private void myInIt()
         {
             this.Text = "Catch Game";
@@ -73,7 +72,7 @@ namespace CatchGame
             myMenu();
         }
 
-        //thiet ke form menu
+        //design the form menu
         private void myMenu()
         {
             btnPlay.Text = "Play";
@@ -89,8 +88,25 @@ namespace CatchGame
             this.BackgroundImage = Properties.Resources.bg;
             this.BackgroundImageLayout = ImageLayout.Stretch;
         }
+        
+        //button play
+        //event when user click on the play button
+        private void btnPlayClick(Object sender, EventArgs e)
+        {
+            btnPlay.Visible = false;
+            btnExit.Visible = false;
 
-        //thiet ke form hien thi game
+            myGame();
+        }
+
+        //button exit
+        //event when user click on the exit button
+        private void btnExitClick(Object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        //game play
         public void myGame()
         {
             lbScore.Text = "Score";
@@ -129,35 +145,11 @@ namespace CatchGame
             spriteController = new SpriteController(panel);
             spriteController.DoTick += CheckForKeyPress;
 
-            backBufferBasket = new Bitmap(panel.Width, panel.Height);
-
-            backBufferEggs = new Bitmap(panel.Width, panel.Height);
-
             loadBasketImage();
             loadEggsImage();
-            
-        }
-        #endregion
-
-        #region su kien cac button tren man hinh menu
-        //su kien khi click vao button Play
-        private void btnPlayClick(Object sender, EventArgs e)
-        {
-            btnPlay.Visible = false;
-            btnExit.Visible = false;
-
-            myGame();
         }
 
-        //su kien khi click vao button Exit
-        private void btnExitClick(Object sender, EventArgs e)
-        {
-            this.Close();
-        }
-        #endregion
-
-        #region timer
-        //su kien cua timer
+        //timer tick event
         private void timerTick(object sender, EventArgs e)
         {
             this.lbCountTime.Text = i.ToString();
@@ -170,11 +162,25 @@ namespace CatchGame
             if (i < 0)
             {
                 this.timer.Enabled = false;
+                timeOut();
             }
         }
-        #endregion
 
-        #region load hinh anh
+        //time out
+        private void timeOut()
+        {
+            MessageBox.Show("Your score is: " + lbCountScore.ToString(), "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            btnExit.Visible = true;
+            btnPlay.Visible = true;
+
+            lbScore.Visible = false;
+            lbCountScore.Visible = false;
+            lbTime.Visible = false;
+            lbCountTime.Visible = false;
+            panel.Visible=false;
+        }
+
         //ve lai cua so khi resize
         private void DemoWindow_ResizeEnd(object sender, EventArgs e)
         {
@@ -188,11 +194,12 @@ namespace CatchGame
             panel.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
-        //load hinh cai gio
+        //render basket image
         private void loadBasketImage()
         {
             spriteBasket = new Sprite(new Point(0, 0), spriteController, Properties.Resources.basket, 95, 50, 1000, 1);
             spriteBasket.SetSize(new Size(120, 100));
+            spriteBasket.SetName(SpriteNames.basket.ToString());
 
             spriteBasket.AddAnimation(new Point(0, 200), Properties.Resources.basket, 95, 50, 150, 1);
             spriteBasket.PutPictureBoxLocation(spriteBasketPoint);
@@ -200,7 +207,7 @@ namespace CatchGame
             spriteBasket.CannotMoveOutsideBox = true;
         }
 
-        //load hinh qua trung
+        //render egg image
         private void loadEggsImage()
         {
             int startX = 0;
@@ -212,8 +219,9 @@ namespace CatchGame
 
             spriteEggs = new Sprite(new Point(0, 0), spriteController, Properties.Resources.egg, 43, 50, 1000, 1);
             spriteEggs.SetSize(new Size(70, 120));
+            spriteEggs.SetName(SpriteNames.egg.ToString());
 
-            spriteEggs.AddAnimation(new Point(0, 200), Properties.Resources.basket, 41, 52, 150, 1);
+            spriteEggs.AddAnimation(new Point(0, 200), Properties.Resources.egg, 41, 52, 150, 1);
             spriteEggs.PutPictureBoxLocation(new Point(startX, startY));
 
             spriteEggs.CannotMoveOutsideBox = true;
@@ -221,17 +229,12 @@ namespace CatchGame
             spriteEggs.SetSpriteDirectionDegrees(270);
             spriteEggs.AutomaticallyMoves = true;
             spriteEggs.MovementSpeed = eggsSpeed;
+
+            spriteEggs.SpriteHitsPictureBox += eggsCollision;
+            spriteEggs.SpriteHitsSprite += eggHitBasket;
         }
 
-        //load hinh con ga
-        private void loadSplashEggImage()
-        {
-
-        }
-        #endregion
-
-        #region dieu khien gio
-        //dieu khien ban phim
+        //control the basket
         private void CheckForKeyPress(object sender, EventArgs e)
         {
             left = false;
@@ -285,6 +288,37 @@ namespace CatchGame
                 spriteBasket.MovementSpeed = 0;
             }
         }
-        #endregion
+
+        //detect collision
+        //when egg hit the ground
+        private void eggsCollision(object sender, SpriteEventArgs e)
+        {
+            if (sender == null) return;
+
+            //Sprite egg = (Sprite)sender;
+            //Sprite nSprite = spriteController.DuplicateSprite(SpriteNames.splash.ToString());
+            //nSprite.PutBaseImageLocation(egg.BaseImageLocation);
+            //nSprite.AnimateOnce(0);
+            //egg.Destroy();
+
+
+
+            //throw new NotImplementedException();
+        }
+        
+        //when egg hit the basket
+        private void eggHitBasket(object sender, SpriteEventArgs e)
+        {
+            Sprite me = (Sprite)sender;
+
+            //Sprite nSprite = spriteController.DuplicateSprite(SpriteNames.basket.ToString());
+            //nSprite.PutBaseImageLocation(me.BaseImageLocation);
+            //nSprite.SetSize(me.GetSize);
+            //nSprite.AnimateOnce(0);
+            //SoundPlayer newPlayer = new SoundPlayer(Properties.Resources.Tboom);
+            //newPlayer.Play();
+            me.Destroy();
+            //e.TargetSprite.Destroy();
+        }
     }
 }
