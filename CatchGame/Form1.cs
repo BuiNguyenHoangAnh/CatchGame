@@ -68,6 +68,8 @@ namespace CatchGame
         {
             this.Text = "Catch Game";
             this.AutoSize = false;
+            this.MaximumSize = this.Size;
+            this.MinimumSize = this.Size;
 
             myMenu();
         }
@@ -155,7 +157,7 @@ namespace CatchGame
             this.lbCountTime.Text = i.ToString();
 
             i--;
-            if (i % 5 == 0 || i % 9 == 0)
+            if (i % 2 == 0 || i % 5 == 0)
             {
                 loadEggsImage();
             }
@@ -169,7 +171,7 @@ namespace CatchGame
         //time out
         private void timeOut()
         {
-            MessageBox.Show("Your score is: " + lbCountScore.ToString(), "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Your score is: " + lbCountScore.Text.ToString(), "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             btnExit.Visible = true;
             btnPlay.Visible = true;
@@ -311,12 +313,11 @@ namespace CatchGame
         {
             Sprite me = (Sprite)sender;
 
-            //Sprite nSprite = spriteController.DuplicateSprite(SpriteNames.basket.ToString());
-            //nSprite.PutBaseImageLocation(me.BaseImageLocation);
-            //nSprite.SetSize(me.GetSize);
-            //nSprite.AnimateOnce(0);
             //SoundPlayer newPlayer = new SoundPlayer(Properties.Resources.Tboom);
             //newPlayer.Play();
+            score += 1;
+            lbCountScore.Text = score.ToString();
+
             me.Destroy();
             //e.TargetSprite.Destroy();
         }
