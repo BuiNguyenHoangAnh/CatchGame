@@ -25,8 +25,8 @@ namespace CatchGame
         private Label lbTime = new Label(); //label to display the timer
         private Label lbCountTime = new Label();
 
-        private Timer timer = new Timer(); //the timer to count the time
-        private int i = 60; //the time to play is 60 seconds
+        private Timer timer; //the timer to count the time
+        private int i; //the time to play is 60 seconds
 
         private PictureBox panel = new PictureBox(); //picturebox to display the sprite
 
@@ -98,6 +98,12 @@ namespace CatchGame
             btnPlay.Visible = false;
             btnExit.Visible = false;
 
+            lbScore.Visible = true;
+            lbCountScore.Visible = true;
+            lbTime.Visible = true;
+            lbCountTime.Visible = true;
+            panel.Visible = true;
+
             myGame();
         }
 
@@ -111,6 +117,9 @@ namespace CatchGame
         //game play
         public void myGame()
         {
+            i = 10;
+            score = 0;
+
             lbScore.Text = "Score";
             lbScore.Location = new Point(10, 10);
             lbScore.Size = new Size(40,20);
@@ -138,6 +147,7 @@ namespace CatchGame
             panel.BackColor = Color.White;
             this.Controls.Add(panel);
 
+            timer = new Timer();
             timer.Tick += new EventHandler(timerTick);
             timer.Enabled = true;
             timer.Interval = 1000;
@@ -155,13 +165,13 @@ namespace CatchGame
         private void timerTick(object sender, EventArgs e)
         {
             this.lbCountTime.Text = i.ToString();
-
             i--;
+
             if (i % 2 == 0 || i % 5 == 0)
             {
                 loadEggsImage();
             }
-            if (i < 0)
+            if (i <= 0)
             {
                 this.timer.Enabled = false;
                 timeOut();
@@ -181,6 +191,9 @@ namespace CatchGame
             lbTime.Visible = false;
             lbCountTime.Visible = false;
             panel.Visible=false;
+
+            spriteBasket.Destroy();
+            spriteEggs.Destroy();
         }
 
         //ve lai cua so khi resize
@@ -243,7 +256,7 @@ namespace CatchGame
             right = false;
             move = false;
 
-            basketSpeed = 10000;
+            basketSpeed = 10;
 
             TimeSpan duration = DateTime.Now - lastMovement;
             if (duration.TotalMilliseconds < 100)
@@ -297,11 +310,11 @@ namespace CatchGame
         {
             if (sender == null) return;
 
-            //Sprite egg = (Sprite)sender;
+            Sprite me = (Sprite)sender;
             //Sprite nSprite = spriteController.DuplicateSprite(SpriteNames.splash.ToString());
             //nSprite.PutBaseImageLocation(egg.BaseImageLocation);
             //nSprite.AnimateOnce(0);
-            //egg.Destroy();
+            me.Destroy();
 
 
 
