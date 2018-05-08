@@ -93,20 +93,19 @@ namespace CatchGame.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap egg1 {
+        internal static System.Drawing.Bitmap splash {
             get {
-                object obj = ResourceManager.GetObject("egg1", resourceCulture);
+                object obj = ResourceManager.GetObject("splash", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.Drawing.Bitmap splash {
+        internal static System.IO.UnmanagedMemoryStream win {
             get {
-                object obj = ResourceManager.GetObject("splash", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetStream("win", resourceCulture);
             }
         }
     }

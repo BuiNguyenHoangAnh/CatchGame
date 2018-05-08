@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SpriteLibrary;
 using System.Data.SqlClient;
+using System.Media;
+using System.Reflection;
+using System.IO;
 
 namespace CatchGame
 {
@@ -20,6 +23,7 @@ namespace CatchGame
         //khai bao bien
         private Button btnPlay = new Button(); //button play to start the game
         private Button btnExit = new Button(); //button exit to exit the game
+        private Button btnAbout = new Button();  //button about to introduce about the game
 
         private Label lbScore = new Label(); //label to display the score
         private Label lbCountScore = new Label();
@@ -83,6 +87,11 @@ namespace CatchGame
             this.Controls.Add(btnPlay);
             btnPlay.Click += new EventHandler(btnPlayClick);
 
+            btnAbout.Text = "About";
+            btnAbout.Location = new Point(110, 110);
+            this.Controls.Add(btnAbout);
+            btnAbout.Click += new EventHandler(btnAboutClick);
+
             btnExit.Text = "Exit";
             btnExit.Location = new Point(110, 150);
             this.Controls.Add(btnExit);
@@ -98,6 +107,7 @@ namespace CatchGame
         {
             btnPlay.Visible = false;
             btnExit.Visible = false;
+            btnAbout.Visible = false;
 
             lbScore.Visible = true;
             lbCountScore.Visible = true;
@@ -106,6 +116,17 @@ namespace CatchGame
             panel.Visible = true;
 
             myGame();
+        }
+
+        //button about
+        //event when user click on the about button
+        private void btnAboutClick(object sender, EventArgs e)
+        {
+            Form frm = new Form();
+
+            frm.Text = "About";
+
+            frm.Show();
         }
 
         //button exit
@@ -176,7 +197,7 @@ namespace CatchGame
             {
                 loadEggsImage();
             }
-            if (i <= 0)
+            if (i < 0)
             {
                 this.timer.Enabled = false;
                 timeOut();
@@ -203,6 +224,7 @@ namespace CatchGame
 
             btnExit.Visible = true;
             btnPlay.Visible = true;
+            btnAbout.Visible = true;
 
             lbScore.Visible = false;
             lbCountScore.Visible = false;
@@ -212,6 +234,7 @@ namespace CatchGame
 
             spriteBasket.Destroy();
             spriteEggs.Destroy();
+            //newPlayer.
         }
 
         //redraw the window when resize
@@ -352,8 +375,9 @@ namespace CatchGame
         {
             Sprite me = (Sprite)sender;
 
-            //SoundPlayer newPlayer = new SoundPlayer(Properties.Resources.Tboom);
-            //newPlayer.Play();
+            SoundPlayer newPlayer = new SoundPlayer(Properties.Resources.win);
+            newPlayer.Play();
+
             score += 1;
             lbCountScore.Text = score.ToString();
 
