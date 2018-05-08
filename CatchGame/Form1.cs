@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SpriteLibrary;
+using System.Data.SqlClient;
 
 namespace CatchGame
 {
@@ -45,16 +46,16 @@ namespace CatchGame
 
         int score; //score of the gamer
 
-        Bitmap backBufferBasket;
         Sprite spriteBasket; //spite of the basket
-        Graphics graphicsBasket;
-        Graphics gBasket;
-        int locationBasket;
 
-        Bitmap backBufferEggs;
-        Sprite spriteEggs;
-        Graphics graphicsEggs;
-        Graphics gEggs;
+        Sprite spriteEggs;  //sprite of the eggs
+
+        Sprite spriteSplash; //sprite of the splash eggs
+
+        SqlConnection con; //object to connect to DB
+        SqlCommand cmd;  //do trigger
+        SqlDataAdapter dap;  //to connect DataSource with Dataset
+        DataSet ds; //nclude currently local data
 
         public Form1()
         {
@@ -159,6 +160,10 @@ namespace CatchGame
 
             loadBasketImage();
             loadEggsImage();
+
+            con = new SqlConnection();
+
+            
         }
 
         //timer tick event
@@ -181,7 +186,20 @@ namespace CatchGame
         //time out
         private void timeOut()
         {
-            MessageBox.Show("Your score is: " + lbCountScore.Text.ToString(), "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            con.ConnectionString = @"Data Source=.\SQLEXPRESS;AttachDbFilename=" + Application.StartupPath + @"\Database.mdf;Integrated Security=True;User Instance=True";
+            con.Open();
+
+            ds = new DataSet();
+
+            cmd = new SqlCommand("insert into Score(timePlay, userScore) values(" + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Hour.ToString() + ", " + score.ToString() + ");");
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.ExecuteNonQuery();
+        
+            var cm = new SqlCommand("select MAX(userScore) from Score", con);
+            var res = cm.ExecuteScalar();
+
+            MessageBox.Show("Your score is: " + lbCountScore.Text.ToString()+"\n High Score: "+ res.ToString(), "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             btnExit.Visible = true;
             btnPlay.Visible = true;
@@ -196,7 +214,7 @@ namespace CatchGame
             spriteEggs.Destroy();
         }
 
-        //ve lai cua so khi resize
+        //redraw the window when resize
         private void DemoWindow_ResizeEnd(object sender, EventArgs e)
         {
             panel.Invalidate();
@@ -247,6 +265,16 @@ namespace CatchGame
 
             spriteEggs.SpriteHitsPictureBox += eggsCollision;
             spriteEggs.SpriteHitsSprite += eggHitBasket;
+        }
+
+        private void loadSplashImage(Sprite sprite)
+        {
+            spriteSplash = new Sprite(sprite.PictureBoxLocation, spriteController, Properties.Resources.splash, 50, 50, 1000, 1);
+            spriteSplash.SetSize(new Size(70, 120));
+            spriteSplash.SetName(SpriteNames.basket.ToString());
+
+            spriteSplash.AddAnimation(sprite.PictureBoxLocation, Properties.Resources.splash, 50, 50, 150, 1);
+            spriteSplash.PutPictureBoxLocation(spriteBasketPoint);
         }
 
         //control the basket
@@ -316,8 +344,6 @@ namespace CatchGame
             //nSprite.AnimateOnce(0);
             me.Destroy();
 
-
-
             //throw new NotImplementedException();
         }
         
@@ -332,7 +358,6 @@ namespace CatchGame
             lbCountScore.Text = score.ToString();
 
             me.Destroy();
-            //e.TargetSprite.Destroy();
         }
     }
 }

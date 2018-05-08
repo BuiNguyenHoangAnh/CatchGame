@@ -12,3 +12,5 @@ E:\MyDocument\University\GiaoTrinh\HK6\Lap trinh truc quan - 4.3.1\Thuc hanh\Cat
 E:\MyDocument\University\GiaoTrinh\HK6\Lap trinh truc quan - 4.3.1\Thuc hanh\CatchGame\CatchGame\bin\Debug\SpriteLibrary.pdb
 E:\MyDocument\University\GiaoTrinh\HK6\Lap trinh truc quan - 4.3.1\Thuc hanh\CatchGame\CatchGame\bin\Debug\SpriteLibrary.xml
 E:\MyDocument\University\GiaoTrinh\HK6\Lap trinh truc quan - 4.3.1\Thuc hanh\CatchGame\CatchGame\obj\Debug\CatchGame.csproj.CopyComplete
+E:\MyDocument\University\GiaoTrinh\HK6\Lap trinh truc quan - 4.3.1\Thuc hanh\CatchGame\CatchGame\bin\Debug\Database.mdf
+E:\MyDocument\University\GiaoTrinh\HK6\Lap trinh truc quan - 4.3.1\Thuc hanh\CatchGame\CatchGame\bin\Debug\Database_log.ldf
