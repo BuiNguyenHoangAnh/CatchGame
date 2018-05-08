@@ -61,6 +61,9 @@ namespace CatchGame
         SqlDataAdapter dap;  //to connect DataSource with Dataset
         DataSet ds; //nclude currently local data
 
+        Form frm;//about form
+        Button btnNext;//button next in about form
+
         public Form1()
         {
             InitializeComponent();
@@ -122,11 +125,24 @@ namespace CatchGame
         //event when user click on the about button
         private void btnAboutClick(object sender, EventArgs e)
         {
-            Form frm = new Form();
+            frm = new Form();
+
+            btnNext = new Button();
+            btnNext.Text = "Next";
+            btnNext.Click += new EventHandler(btnNextClick);
 
             frm.Text = "About";
+            frm.BackgroundImage = Properties.Resources.about1;
+            frm.BackgroundImageLayout = ImageLayout.Stretch;
+            frm.Controls.Add(btnNext);
 
             frm.Show();
+        }
+
+        private void btnNextClick(object sender, EventArgs e)
+        {
+            frm.BackgroundImage = Properties.Resources.about2;
+            btnNext.Visible = false;
         }
 
         //button exit

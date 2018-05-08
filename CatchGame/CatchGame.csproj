@@ -105,7 +105,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>Database.mdf</DependentUpon>
     </Content>
-    <None Include="Resources\bgSound.wav" />
+    <None Include="Resources\about1.jpg" />
+    <None Include="Resources\about2.jpg" />
     <Content Include="Resources\egg.png" />
     <None Include="Resources\win.wav" />
   </ItemGroup>
