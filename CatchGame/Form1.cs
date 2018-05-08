@@ -250,13 +250,6 @@ namespace CatchGame
 
             spriteBasket.Destroy();
             spriteEggs.Destroy();
-            //newPlayer.
-        }
-
-        //redraw the window when resize
-        private void DemoWindow_ResizeEnd(object sender, EventArgs e)
-        {
-            panel.Invalidate();
         }
 
         //set the background of the game
@@ -304,16 +297,6 @@ namespace CatchGame
 
             spriteEggs.SpriteHitsPictureBox += eggsCollision;
             spriteEggs.SpriteHitsSprite += eggHitBasket;
-        }
-
-        private void loadSplashImage(Sprite sprite)
-        {
-            spriteSplash = new Sprite(sprite.PictureBoxLocation, spriteController, Properties.Resources.splash, 50, 50, 1000, 1);
-            spriteSplash.SetSize(new Size(70, 120));
-            spriteSplash.SetName(SpriteNames.basket.ToString());
-
-            spriteSplash.AddAnimation(sprite.PictureBoxLocation, Properties.Resources.splash, 50, 50, 150, 1);
-            spriteSplash.PutPictureBoxLocation(spriteBasketPoint);
         }
 
         //control the basket
@@ -371,21 +354,18 @@ namespace CatchGame
             }
         }
 
+        //------------
         //detect collision
+        //------------
         //when egg hit the ground
         private void eggsCollision(object sender, SpriteEventArgs e)
         {
             if (sender == null) return;
 
             Sprite me = (Sprite)sender;
-            //Sprite nSprite = spriteController.DuplicateSprite(SpriteNames.splash.ToString());
-            //nSprite.PutBaseImageLocation(egg.BaseImageLocation);
-            //nSprite.AnimateOnce(0);
             me.Destroy();
-
-            //throw new NotImplementedException();
         }
-        
+
         //when egg hit the basket
         private void eggHitBasket(object sender, SpriteEventArgs e)
         {
